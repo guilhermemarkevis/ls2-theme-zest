@@ -1,13 +1,23 @@
 <header>
   <div class="row topline">
-    <div class="six columns login">
-      {% if customer %}
-        Welcome, {{ customer.first_name }}!
-        <a href="{{ site_url('logout') }}">Logout</a>
-      {% else %}
-        <a href="{{ site_url('login') }}">Login or Register</a>
-      {% endif %}
-    </div>
+      <div class="six columns login">
+        {% if customer %}
+          Welcome, {{ customer.first_name }}!
+          {#<a href="{{ site_url('logout') }}">Logout</a>#}
+          <a href="{{ site_url('logout') }}" id="AmazonLogoutAnchor">Logout</a>
+         <script type="text/javascript">
+            document.getElementById('AmazonLogoutAnchor').onclick = function() {
+              amazon.Login.logout();
+          };
+          </script>
+        {% else %}
+          <a href="{{ site_url('login') }}">Login or Register</a>
+          <!-- Place this where you would like the Login with Amazon Button to appear -->
+          {% if amazonLoginButton is defined %}
+            {{ amazonLoginButton }}
+          {% endif %}
+        {% endif %}
+      </div>
     <div class="six columns">
       <div class="row">
         <div class="seven columns">
@@ -50,7 +60,7 @@
       </ul>
     </div>
   </div>
-  
+
   {% if titleArea %}
     <div class="row secondhead">
       <div class="twelve columns omega">

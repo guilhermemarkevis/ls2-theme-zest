@@ -1,0 +1,23 @@
+{% if cart %}
+  {{ partial('shop-cart-items') }}
+  <div class="row">
+    <div class="six columns">
+      {% if order.payment_processed %}
+        <p class="flash info"><strong>Thank you!</strong> The payment is already processed for this order.</p>
+      {% else %}
+        <div class="row">
+          <div class="twelve columns">
+            <div class="row">
+              <div id="payment_form">{{ partial('shop-paymentform') }}</div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    <div class="three columns offset-by-two data-list align-right">
+      {{ partial('shop-checkout-totals') }}
+    </div>
+  </div>
+{% else %}
+  <p class="flash error">Order not found.</p>
+{% endif %}
